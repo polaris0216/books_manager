@@ -8,4 +8,7 @@ import com.example.entity.Users;
 @Repository
 public interface UsersRepository extends JpaRepository<Users, Integer>{
 	 // 以降の設問で必要に応じて機能を実装すること
+
+	 // emailと一致するユーザを取得する
+    public Users findByEmail(String email);
 }

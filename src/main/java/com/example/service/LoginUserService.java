@@ -1,5 +1,37 @@
 package com.example.service;
 
-public class LoginUserService {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
 
+import com.example.entity.Users;
+import com.example.repository.UsersRepository;
+
+@Service
+public class LoginUserService implements UserDetailsService {
+
+    private final UsersRepository usersRepository;
+
+    // コンストラクタインジェクション
+    @Autowired
+    public LoginUserService(UsersRepository usersRepository) {
+        this.usersRepository = usersRepository;
+    }
+
+
+    @Override
+    // emailはユーザーから送信されるメールアドレスを想定しています
+    public LoginUser loadUserByUsername(String email) throws UsernameNotFoundException {
+        // emailによりデータベースからユーザ情報の取得
+        Users users = this.usersRepository.findByEmail(email);
+
+        // ユーザー情報が見つからない場合、例外を発生させます
+        if (users == null) {
+            throw new UsernameNotFoundException("ユーザが見つかりません");
+        }
+
+        // ユーザ情報が見つかった場合は、UserDetailsを生成し返却します
+        return new LoginUser(users);
+    }
 }

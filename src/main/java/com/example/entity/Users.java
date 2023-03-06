@@ -20,6 +20,12 @@ public class Users {
 	    @Column(name = "NAME")
 	    private String name;
 
+	    @Column(name = "EMAIL")
+	    private String email;
+
+	    @Column(name = "PASSWORD")
+	    private String password;
+
 	    public Integer getId() {
 	        return this.id;
 	    }
@@ -34,5 +40,33 @@ public class Users {
 
 	    public void setName(String name) {
 	        this.name = name;
+	    }
+
+	    public String getEmail() {
+	        return this.email;
+	    }
+
+	    public void setEmail(String email) {
+	        this.email = email;
+	    }
+
+	    public String getPassword() {
+	        return this.password;
+	    }
+
+	    public void setPassword(String password) {
+	        this.password = password;
+	    }
+
+	    @Column(name = "ROLE")
+	    private String role;
+
+
+	    public String getRole() {
+	        return this.role;
+	    }
+
+	    public void setRole(String role) {
+	        this.role = role;
 	    }
 }
