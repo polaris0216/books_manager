@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.example.entity.Users;
 
-
 public class LoginUser implements UserDetails {
 
     // Userオブジェクト(Entityクラス)
@@ -43,9 +42,9 @@ public class LoginUser implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         //return AuthorityUtils.NO_AUTHORITIES;
     	// ロールカラムを見て、認証ユーザのロールを設定する
-        if (this.users.getRole().equals("管理者")) {
-            return AuthorityUtils.createAuthorityList("ADMIN", "GENERAL");
-        }
+//        if (this.users.getRole().equals("管理者")) {
+//            return AuthorityUtils.createAuthorityList("ADMIN", "GENERAL");
+//        }
         return AuthorityUtils.createAuthorityList("GENERAL");
     }
 

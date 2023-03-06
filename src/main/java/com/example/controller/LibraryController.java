@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+//import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.entity.Library;
@@ -15,8 +16,7 @@ import com.example.service.LibraryService;
 @RequestMapping("library")
 public class LibraryController {
 
-	//でーだベースに登録されているデータを取得して　Viewに値を渡す。　↓
-	private final LibraryService libraryService;
+    private final LibraryService libraryService;
 
     @Autowired
     public LibraryController(LibraryService libraryService) {
@@ -30,10 +30,4 @@ public class LibraryController {
         return "library/index";
     }
 
-    //↑
-
-//    @GetMapping
-//    public String index() {
-//        return "library/index";
-//    }
 }

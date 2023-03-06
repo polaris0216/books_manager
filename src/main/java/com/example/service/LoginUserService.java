@@ -11,12 +11,12 @@ import com.example.repository.UsersRepository;
 @Service
 public class LoginUserService implements UserDetailsService {
 
-    private final UsersRepository usersRepository;
+    private final UsersRepository userRepository;
 
     // コンストラクタインジェクション
     @Autowired
-    public LoginUserService(UsersRepository usersRepository) {
-        this.usersRepository = usersRepository;
+    public LoginUserService(UsersRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
 
@@ -24,14 +24,14 @@ public class LoginUserService implements UserDetailsService {
     // emailはユーザーから送信されるメールアドレスを想定しています
     public LoginUser loadUserByUsername(String email) throws UsernameNotFoundException {
         // emailによりデータベースからユーザ情報の取得
-        Users users = this.usersRepository.findByEmail(email);
+        Users user = this.userRepository.findByEmail(email);
 
         // ユーザー情報が見つからない場合、例外を発生させます
-        if (users == null) {
+        if (user == null) {
             throw new UsernameNotFoundException("ユーザが見つかりません");
         }
 
         // ユーザ情報が見つかった場合は、UserDetailsを生成し返却します
-        return new LoginUser(users);
+        return new LoginUser(user);
     }
 }
