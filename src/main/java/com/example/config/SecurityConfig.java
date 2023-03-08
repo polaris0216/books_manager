@@ -27,7 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	    }
 
 	@Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(HttpSecurity  http) throws Exception {
         // 認証・認可に関する設定を追加します
     	// 認可の設定
         http.authorizeRequests()

@@ -3,24 +3,31 @@ package com.example.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.entity.Library;
 import com.example.service.LibraryService;
+import com.example.service.LoginUser;
+import com.example.service.LogsService;
+
 
 @Controller
-@RequestMapping("library")
+@RequestMapping("/library")
 public class LibraryController {
 
     private final LibraryService libraryService;
+    private final LogsService logsService;
 
     @Autowired
-    public LibraryController(LibraryService libraryService) {
+    public LibraryController(LibraryService libraryService, LogsService logsService) {
         this.libraryService = libraryService;
+        this.logsService = logsService;
     }
 
     @GetMapping
@@ -30,4 +37,21 @@ public class LibraryController {
         return "library/index";
     }
 
+    @GetMapping("borrow") //書籍貸し出しフォームを表示する
+    public String borrowingForm(@RequestParam("id") Integer id, Model model) {
+    	Library library = this.libraryService.findLibrary(id);
+    	model.addAttribute("library",library);
+    	return "library/borrowingForm";
+    }
+
+    @PostMapping("borrow")//貸出しフォームの情報をもとに、貸出し処理を行う
+    public String borrow(@RequestParam("id") Integer id,@RequestParam("return_due_date") String returnDueDate, @AuthenticationPrincipal LoginUser loginUser) {
+
+    	//ログイン中のIDを受け取ってLIBRARIESテーブルのUSER＿IDに更新
+    	this.libraryService.update(id, returnDueDate, loginUser);
+    	this.logsService.update(id, returnDueDate, loginUser);
+    	//Logsモデルを利用して LIBRARY_ID, USER_ID, RENT_DATE, RETURN_DUE_DATEにデータ入力
+    	//Logs logs = this.logsService.save(id,)
+    	return "redirect:/library";
+    }
 }

@@ -18,6 +18,11 @@ public class LoginUser implements UserDetails {
         this.users = users;
     }
 
+    public Integer getId() {
+    	return this.users.getId();
+    }
+
+
     // Entityクラスである、Userオブジェクトのゲッター
     public Users getUser() {
         return this.users;
