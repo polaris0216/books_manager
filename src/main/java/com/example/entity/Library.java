@@ -22,7 +22,7 @@ public class Library {
     private String name;
 
     @Column(name = "USER_ID")
-    private Integer user_id;
+    private Integer userId;
 
     public Integer getId() {
         return this.id;
@@ -41,10 +41,10 @@ public class Library {
     }
 
     public Integer getUserId() {
-    	return this.user_id;
+    	return this.userId;
     }
 
     public void setUserId(Integer user_id) {
-    	this.user_id = user_id;
+    	this.userId = user_id;
     }
 }

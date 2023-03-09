@@ -20,19 +20,19 @@ public class Logs {
 	    private Integer id;
 
 	 	@Column(name = "LIBRARY_ID")
-	 	private Integer library_id;
+	 	private Integer libraryId;
 
 	    @Column(name = "USER_ID")
-	    private Integer user_id;
+	    private Integer userId;
 
 	    @Column(name = "RENT_DATE")
-	    private LocalDateTime rent_date;
+	    private LocalDateTime rentDate;
 
 	    @Column(name = "RETURN_DATE")
-	    private LocalDateTime return_date;
+	    private LocalDateTime returnDate;
 
 	    @Column(name = "RETURN_DUE_DATE")
-	    private LocalDateTime return_due_date;
+	    private LocalDateTime returnDueDate;
 
 	    public Integer getId() {
 	        return this.id;
@@ -43,43 +43,43 @@ public class Logs {
 	    }
 
 	    public Integer getLibraryId() {
-	        return this.library_id;
+	        return this.libraryId;
 	    }
 
 	    public void setLibraryId(Integer libnumber) {
-	        this.library_id = libnumber;
+	        this.libraryId = libnumber;
 	    }
 
 	    public Integer getUserId() {
-	        return this.user_id;
+	        return this.userId;
 	    }
 
 	    public void setUserId(Integer usernumber) {
-	        this.user_id = usernumber;
+	        this.userId = usernumber;
 	    }
 
 	    public LocalDateTime getRentDate() {
-	        return this.rent_date;
+	        return this.rentDate;
 	    }
 
 	    public void setRentDate(LocalDateTime rentdate) {
-	    	this.rent_date = rentdate;
+	    	this.rentDate = rentdate;
 	    }
 
 	    public LocalDateTime getReturnDate() {
-	        return this.return_date;
+	        return this.returnDate;
 	    }
 
 	    public void setReturnDate(LocalDateTime returndate) {
-	        this.return_date = returndate;
+	        this.returnDate = returndate;
 	    }
 
 	    public LocalDateTime getReturnDueDate() {
-	        return this.return_due_date;
+	        return this.returnDueDate;
 	    }
 
 	    public void setReturnDueDate(LocalDateTime returnduedate) {
-	        this.return_due_date = returnduedate;
+	        this.returnDueDate = returnduedate;
 	    }
 
 }

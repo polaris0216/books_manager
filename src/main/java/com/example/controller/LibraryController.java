@@ -48,10 +48,22 @@ public class LibraryController {
     public String borrow(@RequestParam("id") Integer id,@RequestParam("return_due_date") String returnDueDate, @AuthenticationPrincipal LoginUser loginUser) {
 
     	//ログイン中のIDを受け取ってLIBRARIESテーブルのUSER＿IDに更新
-    	this.libraryService.update(id, returnDueDate, loginUser);
-    	this.logsService.update(id, returnDueDate, loginUser);
+    	this.libraryService.insert(id, returnDueDate, loginUser);
+    	this.logsService.insert(id, returnDueDate, loginUser);
     	//Logsモデルを利用して LIBRARY_ID, USER_ID, RENT_DATE, RETURN_DUE_DATEにデータ入力
     	//Logs logs = this.logsService.save(id,)
     	return "redirect:/library";
     }
+
+    @PostMapping("return")//受け取った書籍IDをもとに返却処理を行う
+    public String returnBook(@RequestParam("id") Integer id, @AuthenticationPrincipal LoginUser loginUser) {
+    	//書籍情報を1件取得し代入する。
+    	//取得した書籍情報のUSER_IDに0セット
+    	this.libraryService.returnBook(id);
+    	//Logsモデルを利用してupdate処理を行う(LIBRARY_ID, USER_IDで対象検索)
+    	this.logsService.update(id, loginUser);
+    	//redirect機能を利用して/libraryにリダイレクト
+    	return "redirect:/library";
+    }
+
 }

@@ -31,7 +31,7 @@ public class LogsService {
 			return logs;
 		}
 
-	    public Logs update(Integer id, String returnDueDate, LoginUser loginUser) {
+	    public Logs insert(Integer id, String returnDueDate, LoginUser loginUser) {
 	    	Logs logs = new Logs();
 //
 //	    	LocalDate now = LocalDate.now();
@@ -43,5 +43,26 @@ public class LogsService {
 	    	logs.setRentDate(LocalDateTime.now());
 	    	logs.setReturnDueDate(LocalDateTime.parse(returnDueDate + "T00:00:00"));
 	    	return this.logsRepository.save(logs);
+	    }
 
+	    public Logs update(Integer id, LoginUser loginUser) {
+//	    	//RENT_DATEが最新のレコードを取得する
+//	    	Logs latestLog = logsRepository.findFirstByLibrary_IdAndUser_IdOrderByRentDateDesc(id, loginUser);
+//	    	//RETURN_DATEに現在の日付を登録
+//	    	latestLog.setReturnDate(LocalDateTime.now());
+//	    	//saveメソッドを利用して更新
+//	    	return this.logsRepository.save(latestLog);
+
+	    	Optional<Logs> optionalLogs = this.logsRepository.findFirstByLibraryIdOrderByRentDateDesc(id);
+	    	//Optional<Logs> optionalLogs = this.logsRepository.findFirstByLibraryIdAndUserIdOrderByRentDateDesc(id, loginUser);
+	    	Logs logs = optionalLogs.get();
+	    	//RENT_DATEが最新のレコードを取得する
+	    	//logs.getRentDate();
+	    	//RETURN_DATEに現在の日付を登録
+	    	logs.setReturnDate(LocalDateTime.now());
+	    	//saveメソッドを利用して更新
+	    	return this.logsRepository.save(logs);
+
+
+	    }
 }

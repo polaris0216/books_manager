@@ -31,14 +31,14 @@ public class LibraryService {
         return library;
     }
 
-	public Library findById(Integer id) {
-		Optional<Library> optionalLibrary = this.libraryRepository.findById(id);
-		Library library = optionalLibrary.get();
-		// TODO 自動生成されたメソッド・スタブ
-		return library;
-	}
+//	public Library findById(Integer id) {
+//		Optional<Library> optionalLibrary = this.libraryRepository.findById(id);
+//		Library library = optionalLibrary.get();
+//		// TODO 自動生成されたメソッド・スタブ
+//		return library;
+//	}
 
-    public Library update(Integer id,  String returnDueDate, LoginUser loginUser) {
+    public Library insert(Integer id,  String returnDueDate, LoginUser loginUser) {
     	// データ１件分のEntityクラスを取得します
     	Optional<Library> optionalLibrary  = this.libraryRepository.findById(id);
     	Library library = optionalLibrary.get();
@@ -46,7 +46,14 @@ public class LibraryService {
 		return this.libraryRepository.save(library);
     }
 
-
+    //LibraryControllerのreturnBook.returnBook処理
+    public Library returnBook(Integer id) {
+    	//書籍情報を1件取得し代入する。
+    	Optional<Library>optionalLibrary = this.libraryRepository.findById(id);
+    	Library library = optionalLibrary.get();
+    	library.setUserId(0);
+    	return this.libraryRepository.save(library);
+    }
 
 
 
