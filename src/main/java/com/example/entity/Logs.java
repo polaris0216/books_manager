@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -81,5 +83,17 @@ public class Logs {
 	    public void setReturnDueDate(LocalDateTime returnduedate) {
 	        this.returnDueDate = returnduedate;
 	    }
+	    //ログ一覧ページに書籍の名前を表示するためにリレーションを行う
+	    @ManyToOne
+	    @JoinColumn(name = "library_id", insertable = false, updatable = false)
+	    private Library library;
+
+	    public Library getLibrary() {
+	    	return this.library;
+	    }
+
+
+
+
 
 }

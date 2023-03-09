@@ -52,9 +52,9 @@ public class LogsService {
 //	    	latestLog.setReturnDate(LocalDateTime.now());
 //	    	//saveメソッドを利用して更新
 //	    	return this.logsRepository.save(latestLog);
-
-	    	Optional<Logs> optionalLogs = this.logsRepository.findFirstByLibraryIdOrderByRentDateDesc(id);
-	    	//Optional<Logs> optionalLogs = this.logsRepository.findFirstByLibraryIdAndUserIdOrderByRentDateDesc(id, loginUser);
+	    	Integer loginUserId = loginUser.getUser().getId();
+//	    	Optional<Logs> optionalLogs = this.logsRepository.findFirstByLibraryIdOrderByRentDateDesc(id);
+	    	Optional<Logs> optionalLogs = this.logsRepository.findFirstByLibraryIdAndUserIdOrderByRentDateDesc(id, loginUserId);
 	    	Logs logs = optionalLogs.get();
 	    	//RENT_DATEが最新のレコードを取得する
 	    	//logs.getRentDate();
@@ -63,6 +63,9 @@ public class LogsService {
 	    	//saveメソッドを利用して更新
 	    	return this.logsRepository.save(logs);
 
-
 	    }
+
+	    public List<Logs> findByUserId(Integer userId) {
+			return logsRepository.findByUserId(userId);
+		}
 }

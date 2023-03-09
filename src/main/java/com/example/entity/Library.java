@@ -1,10 +1,15 @@
 package com.example.entity;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -12,39 +17,48 @@ import javax.persistence.Table;
 @Table(name = "libraries")
 public class Library {
 
-    @Id
-    @SequenceGenerator(name = "LIBRARY_ID_GENERATOR", sequenceName = "LIBRARY_ID_SEQ", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "LIBRARY_ID_GENERATOR")
-    @Column(name = "ID")
-    private Integer id;
+	@Id
+	@SequenceGenerator(name = "LIBRARY_ID_GENERATOR", sequenceName = "LIBRARY_ID_SEQ", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "LIBRARY_ID_GENERATOR")
+	@Column(name = "ID")
+	private Integer id;
 
-    @Column(name = "NAME")
-    private String name;
+	@Column(name = "NAME")
+	private String name;
 
-    @Column(name = "USER_ID")
-    private Integer userId;
+	@Column(name = "USER_ID")
+	private Integer userId;
 
-    public Integer getId() {
-        return this.id;
-    }
+	public Integer getId() {
+		return this.id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return this.name;
-    }
+	public String getName() {
+		return this.name;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public Integer getUserId() {
-    	return this.userId;
-    }
+	public Integer getUserId() {
+		return this.userId;
+	}
 
-    public void setUserId(Integer user_id) {
-    	this.userId = user_id;
-    }
+	public void setUserId(Integer user_id) {
+		this.userId = user_id;
+	}
+
+	//ログ一覧ページに書籍の名前を表示するためにリレーションを行う
+	@OneToMany(mappedBy = "library", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	private List<Logs> logs;
+
+	public List<Logs> getLogs(){
+		return this.logs;
+	}
+
 }
